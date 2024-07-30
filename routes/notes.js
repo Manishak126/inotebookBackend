@@ -22,7 +22,6 @@ router.post('/addnotes', fetchuser,[
     body('title',"Enter a Valid title").isLength({min:3}),
     body('description',"Description must be of atleast 5 characters").isLength({min:5}),
 ], async(req, res)=>{
-
     try{
         const {title, description, tag}= req.body;//destructuring
 

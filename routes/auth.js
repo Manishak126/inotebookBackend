@@ -76,7 +76,7 @@ router.post('/login', [
     let success=false;
     const errors=  validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors.array()});
+        return res.status(400).json({success,errors: errors.array()});
     }
    
 
@@ -84,8 +84,7 @@ router.post('/login', [
     try{
         let user= await User.findOne({email});
         if(!user){
-            success = false;
-            return res.status(400).json({error: "Please try to login with correct credentials"})                 
+            return res.status(400).json({success,error: "Please try to login with correct credentials"})                 
         }
 
 
@@ -119,17 +118,6 @@ router.post('/login', [
 //__________________________________________________________________________________________________________
 
 //Route3: Will give logedin user details. will require login
-// router.post('/getuser', fetchuser, async(req,res)=>{
-//     try{
-//         userId=req.user.id;
-//         const user= await User.findById(userId).select("-password")
-//         res.send(user)
-//     }catch(error){
-//         console.log(error.message);
-//         res.status(500).send("Intenal server error");
-//     }
-// })
-
 router.post('/getuser', fetchuser, async(req, res)=>{
     try{
         const userId=req.user.id;
